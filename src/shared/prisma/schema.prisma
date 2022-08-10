@@ -3,19 +3,8 @@ generator client {
 }
 
 datasource db {
-  url      = env("DATABASE_URL")
   provider = "mongodb"
-}
-
-model Product {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String? @db.ObjectId
-  thumbnail String
-  name      String
-
-  User User? @relation(fields: [userId], references: [id])
-
-  @@map("products")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -27,8 +16,6 @@ model User {
   password   String
   full_name  String?
   avatar     Bytes?
-
-  products Product[]
 
   @@map("users")
 }

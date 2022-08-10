@@ -4,7 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo'
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { UsersModule } from './modules/users/users.module'
-import { PrismaService } from './prisma/prisma.service'
+import { PrismaService } from './shared/prisma/prisma.service'
 
 @Global()
 @Module({

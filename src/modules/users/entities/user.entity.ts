@@ -1,4 +1,4 @@
-import { User as UserGQL } from 'src/graphql/graphql'
+import { User as UserGQL } from '../../../shared/graphql/graphql'
 import {
   IsAlphanumeric,
   IsBase64,
@@ -7,15 +7,16 @@ import {
   IsOptional,
   Matches
 } from 'class-validator'
+import { IsObjectId } from 'class-validator-mongo-object-id'
 
 export class UserEntity implements UserGQL {
-  @IsAlphanumeric()
+  @IsObjectId({ message: 'Invalid ID' })
   id: string
 
   @IsEmail({}, { message: 'Invalid E-mail!' })
   email: string
 
-  @IsAlphanumeric('', { message: 'Username needs to be alphanumeric!' })
+  @IsAlphanumeric(undefined, { message: 'Username needs to be alphanumeric!' })
   username: string
 
   // @IsJWT

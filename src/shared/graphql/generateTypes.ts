@@ -7,5 +7,5 @@ definitionsFactory.generate({
   watch: true,
   outputAs: 'interface',
   typePaths: ['./**/*.graphql'],
-  path: join(process.cwd(), '/src/graphql/graphql.ts')
+  path: join(process.cwd(), '/src/shared/graphql/graphql.ts')
 })
