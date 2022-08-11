@@ -13,7 +13,9 @@ type User {
 }
 
 input ReadUserInput {
-  id: String!
+  id: String
+  email: String
+  username: String
 }
 
 input CreateUserInput {

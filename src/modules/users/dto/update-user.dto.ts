@@ -1,19 +1,11 @@
-import { PartialType, IntersectionType, PickType } from '@nestjs/mapped-types'
+import { OmitType, PartialType } from '@nestjs/mapped-types'
 
 import { UpdateUserInput } from '../../../shared/graphql/graphql'
 import { UserEntity } from '../entities/user.entity'
 
 export class UpdateUserDTO
-  extends IntersectionType(
-    PickType(UserEntity, ['id']),
-    PartialType(
-      PickType(UserEntity, [
-        'email',
-        'avatar',
-        'username',
-        'password',
-        'full_name'
-      ])
-    )
-  )
-  implements UpdateUserInput {}
+  extends PartialType(OmitType(UserEntity, ['created_at', 'updated_at', 'id']))
+  implements UpdateUserInput
+{
+  id: UserEntity['id']
+}

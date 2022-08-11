@@ -12,26 +12,26 @@ export class UsersResolver {
 
   @Query('users')
   findAll() {
-    return this.usersService.findAll()
+    return this.usersService.readUsers()
   }
 
   @Query('user')
-  findOne(@Args('readUserInput') readUserInput: ReadUserDTO) {
-    return this.usersService.findOne(readUserInput)
+  findOne(@Args('readUserInput') readUserDTO: ReadUserDTO) {
+    return this.usersService.readUser(readUserDTO)
   }
 
   @Mutation('createUser')
-  create(@Args('createUserInput') createUserInput: CreateUserDTO) {
-    return this.usersService.create(createUserInput)
+  create(@Args('createUserInput') createUserDTO: CreateUserDTO) {
+    return this.usersService.createUser(createUserDTO)
   }
 
   @Mutation('updateUser')
-  update(@Args('updateUserInput') updateUserInput: UpdateUserDTO) {
-    return this.usersService.update(updateUserInput)
+  update(@Args('updateUserInput') updateUserDTO: UpdateUserDTO) {
+    return this.usersService.updateUser(updateUserDTO)
   }
 
   @Mutation('deleteUser')
-  remove(@Args('deleteUserInput') deleteUserInput: DeleteUserDTO) {
-    return this.usersService.remove(deleteUserInput)
+  remove(@Args('deleteUserInput') deleteUserDTO: DeleteUserDTO) {
+    return this.usersService.deleteUser(deleteUserDTO)
   }
 }

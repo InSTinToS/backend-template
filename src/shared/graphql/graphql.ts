@@ -9,7 +9,9 @@
 /* eslint-disable */
 
 export interface ReadUserInput {
-    id: string;
+    id?: Nullable<string>;
+    email?: Nullable<string>;
+    username?: Nullable<string>;
 }
 
 export interface CreateUserInput {

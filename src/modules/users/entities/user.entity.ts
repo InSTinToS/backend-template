@@ -13,10 +13,10 @@ export class UserEntity implements UserGQL {
   @IsObjectId({ message: 'Invalid ID' })
   id: string
 
-  @IsEmail({}, { message: 'Invalid E-mail!' })
+  @IsEmail({}, { message: 'Invalid e-mail' })
   email: string
 
-  @IsAlphanumeric(undefined, { message: 'Username needs to be alphanumeric!' })
+  @IsAlphanumeric(undefined, { message: 'Username needs to be alphanumeric' })
   username: string
 
   // @IsJWT
@@ -33,6 +33,6 @@ export class UserEntity implements UserGQL {
   avatar?: any
 
   @IsOptional()
-  @Matches(/^[a-z ]+$/i, { message: 'Invalid full_name!' })
+  @Matches(/^[a-z ]+$/i, { message: 'Invalid full_name' })
   full_name?: string
 }
