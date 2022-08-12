@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import UserMocks from '../../shared/test/mocks/user.mock'
-import { PrismaService } from '../../shared/prisma/prisma.service'
-import { UsersService } from './users.service'
+import { UsersMocks } from '../../../shared/tests/mocks/users.mock'
+import { PrismaService } from '../../../shared/prisma/prisma.service'
+import { UsersService } from '../users.service'
 import { BadRequestException, NotFoundException } from '@nestjs/common'
-import { CreateUserDTO } from './dto/create-user.dto'
+import { CreateUserDTO } from '../dtos/create-user.dto'
 
 describe('UsersService', () => {
   let service: UsersService
@@ -33,21 +33,9 @@ describe('UsersService', () => {
     expect(service).toBeDefined()
   })
 
-  describe('readUsers', () => {
-    it('should be able to list all users', async () => {
-      const mockedUsers = UserMocks.getValidUsers(3)
-      mockedPrisma.user.findMany.mockReturnValue(mockedUsers)
-
-      const foundUsers = await service.readUsers()
-
-      expect(foundUsers).toStrictEqual(mockedUsers)
-      expect(mockedPrisma.user.findMany).toHaveBeenCalledTimes(1)
-    })
-  })
-
-  describe('verifyExistence', () => {
+  describe('when verify if user exists', () => {
     it('should be able to verify if user exists', async () => {
-      const user = UserMocks.getValidUser()
+      const user = UsersMocks.getValidUser()
 
       mockedPrisma.user.findUnique.mockReturnValue(user)
 
@@ -57,7 +45,7 @@ describe('UsersService', () => {
     })
 
     it('should be able to verify if user exists with more than one key', async () => {
-      const user = UserMocks.getValidUser()
+      const user = UsersMocks.getValidUser()
 
       mockedPrisma.user.findUnique
         .mockReturnValueOnce(undefined)
@@ -72,7 +60,7 @@ describe('UsersService', () => {
     })
 
     it('should return undefined if user not exists', async () => {
-      const user = UserMocks.getValidUser()
+      const user = UsersMocks.getValidUser()
 
       mockedPrisma.user.findUnique.mockReturnValue(undefined)
 
@@ -82,9 +70,21 @@ describe('UsersService', () => {
     })
   })
 
-  describe('readUser', () => {
+  describe('when list all users', () => {
+    it('should be able to list all users', async () => {
+      const mockedUsers = UsersMocks.getValidUsers(3)
+      mockedPrisma.user.findMany.mockReturnValue(mockedUsers)
+
+      const foundUsers = await service.readUsers()
+
+      expect(foundUsers).toStrictEqual(mockedUsers)
+      expect(mockedPrisma.user.findMany).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  describe('when search user', () => {
     it('should be able to find user using id', async () => {
-      const mockedUser = UserMocks.getValidUser()
+      const mockedUser = UsersMocks.getValidUser()
 
       jest
         .spyOn(service, 'verifyExistence')
@@ -97,7 +97,7 @@ describe('UsersService', () => {
     })
 
     it('should be able to find user using username', async () => {
-      const mockedUser = UserMocks.getValidUser()
+      const mockedUser = UsersMocks.getValidUser()
 
       jest
         .spyOn(service, 'verifyExistence')
@@ -112,7 +112,7 @@ describe('UsersService', () => {
     })
 
     it('should be able to find user using email', async () => {
-      const mockedUser = UserMocks.getValidUser()
+      const mockedUser = UsersMocks.getValidUser()
 
       jest
         .spyOn(service, 'verifyExistence')
@@ -130,7 +130,7 @@ describe('UsersService', () => {
         .mockResolvedValue({ foundUser: undefined, by: undefined })
 
       try {
-        await service.readUser({ id: UserMocks.getValidUser().id })
+        await service.readUser({ id: UsersMocks.getValidUser().id })
       } catch (error) {
         expect(error).toBeInstanceOf(NotFoundException)
 
@@ -142,15 +142,15 @@ describe('UsersService', () => {
     })
   })
 
-  describe('createUser', () => {
+  describe('when create user', () => {
     it('should be able to create a user', async () => {
-      mockedPrisma.user.create.mockReturnValue(UserMocks.getValidUser())
+      mockedPrisma.user.create.mockReturnValue(UsersMocks.getValidUser())
 
       jest
         .spyOn(service, 'verifyExistence')
         .mockResolvedValue({ foundUser: undefined, by: undefined })
 
-      const createDTO = UserMocks.getCreateUserDTO()
+      const createDTO = UsersMocks.getValidCreateUserDTO()
       const { email, username } = createDTO
       const createdUser = await service.createUser(createDTO)
 
@@ -159,13 +159,13 @@ describe('UsersService', () => {
     })
 
     it('should return exception when username already exists', async () => {
-      const user2 = UserMocks.getValidUser(2)
+      const user2 = UsersMocks.getValidUser(2)
 
       jest
         .spyOn(service, 'verifyExistence')
         .mockResolvedValue({ foundUser: user2, by: 'username' })
 
-      const user = UserMocks.getValidUser()
+      const user = UsersMocks.getValidUser()
 
       const createDTO: CreateUserDTO = {
         username: user.username,
@@ -186,13 +186,13 @@ describe('UsersService', () => {
     })
 
     it('should return exception when email already exists', async () => {
-      const user2 = UserMocks.getValidUser(2)
+      const user2 = UsersMocks.getValidUser(2)
 
       jest
         .spyOn(service, 'verifyExistence')
         .mockResolvedValue({ foundUser: user2, by: 'email' })
 
-      const user = UserMocks.getValidUser()
+      const user = UsersMocks.getValidUser()
       const createDTO: CreateUserDTO = {
         email: user.email,
         password: user.password,
@@ -212,9 +212,9 @@ describe('UsersService', () => {
     })
   })
 
-  describe('updateUser', () => {
+  describe('when update user', () => {
     it('should be able to update a user', async () => {
-      const user = UserMocks.getValidUser()
+      const user = UsersMocks.getValidUser()
       const newFullName = 'newFullName'
 
       mockedPrisma.user.findUnique.mockReturnValue(user)
@@ -240,8 +240,8 @@ describe('UsersService', () => {
     })
 
     it('should not be able to update email if already exists', () => {
-      const user = UserMocks.getValidUser()
-      const user2 = UserMocks.getValidUser(2)
+      const user = UsersMocks.getValidUser()
+      const user2 = UsersMocks.getValidUser(2)
 
       mockedPrisma.user.findUnique
         .mockReturnValueOnce(user)
@@ -253,8 +253,8 @@ describe('UsersService', () => {
     })
 
     it('should not be able to update username if already exists', () => {
-      const user = UserMocks.getValidUser()
-      const user2 = UserMocks.getValidUser(2)
+      const user = UsersMocks.getValidUser()
+      const user2 = UsersMocks.getValidUser(2)
 
       mockedPrisma.user.findUnique
         .mockReturnValueOnce(user)
@@ -266,9 +266,9 @@ describe('UsersService', () => {
     })
   })
 
-  describe('deleteUser', () => {
+  describe('when delete user', () => {
     it('should be able to delete a user', async () => {
-      const user = UserMocks.getValidUser()
+      const user = UsersMocks.getValidUser()
 
       mockedPrisma.user.findUnique.mockReturnValue(user)
       mockedPrisma.user.delete.mockReturnValue(user)

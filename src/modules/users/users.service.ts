@@ -5,18 +5,15 @@ import {
 } from '@nestjs/common'
 
 import { PrismaService } from '../../shared/prisma/prisma.service'
-import { CreateUserDTO } from './dto/create-user.dto'
-import { DeleteUserDTO } from './dto/delete-user.dto'
-import { ReadUserDTO } from './dto/read-user.dto'
-import { UpdateUserDTO } from './dto/update-user.dto'
 
-import { VerifyExistence, VerifyExistenceReturn } from './users.service.types'
+import { IUsersService } from './types/IUsersService.types'
+import { VerifyExistenceReturn } from './types/verifyExistence.types'
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUsersService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  verifyExistence: VerifyExistence = async data => {
+  verifyExistence: IUsersService['verifyExistence'] = async data => {
     let by: VerifyExistenceReturn['by']
     let foundUser: VerifyExistenceReturn['foundUser']
     const keys = Object.keys(data) as VerifyExistenceReturn['by'][]
@@ -37,9 +34,11 @@ export class UsersService {
     return { foundUser, by }
   }
 
-  readUsers = () => this.prismaService.user.findMany()
+  readUsers: IUsersService['readUsers'] = async () => {
+    return this.prismaService.user.findMany()
+  }
 
-  readUser = async ({ id, email, username }: ReadUserDTO) => {
+  readUser: IUsersService['readUser'] = async ({ id, email, username }) => {
     const { foundUser } = await this.verifyExistence({ id, email, username })
 
     if (!foundUser) throw new NotFoundException('User not found')
@@ -47,7 +46,11 @@ export class UsersService {
     return foundUser
   }
 
-  createUser = async ({ email, password, username }: CreateUserDTO) => {
+  createUser: IUsersService['createUser'] = async ({
+    email,
+    password,
+    username
+  }) => {
     const { foundUser, by } = await this.verifyExistence({ email, username })
 
     if (foundUser) throw new BadRequestException(`${by} already exists`)
@@ -57,9 +60,9 @@ export class UsersService {
     })
   }
 
-  updateUser = async (updateUserDTO: UpdateUserDTO) => {
-    const id = updateUserDTO.id
-    const { email, username } = updateUserDTO
+  updateUser: IUsersService['updateUser'] = async dto => {
+    const id = dto.id
+    const { email, username } = dto
 
     await this.readUser({ id })
 
@@ -68,15 +71,15 @@ export class UsersService {
     if (alreadyExists.foundUser)
       throw new BadRequestException(`${alreadyExists.by} already exists`)
 
-    delete updateUserDTO.id
+    delete dto.id
 
     return this.prismaService.user.update({
       where: { id },
-      data: updateUserDTO
+      data: dto
     })
   }
 
-  deleteUser = async ({ id }: DeleteUserDTO) => {
+  deleteUser: IUsersService['deleteUser'] = async ({ id }) => {
     const { foundUser } = await this.verifyExistence({ id })
 
     if (!foundUser) throw new NotFoundException('User not found')

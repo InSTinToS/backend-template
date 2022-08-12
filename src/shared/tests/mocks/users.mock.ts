@@ -1,8 +1,20 @@
-import { CreateUserDTO } from 'src/modules/users/dto/create-user.dto'
+import { CreateUserDTO } from 'src/modules/users/dtos/create-user.dto'
 import { UserEntity } from 'src/modules/users/entities/user.entity'
 import { ObjectId } from 'mongodb'
+import { IUsersService } from '../../../modules/users/types/IUsersService.types'
 
-class UserMocks {
+type TMockedService = { [key in keyof IUsersService]: jest.Mock<any, any> }
+
+export class UsersMocks {
+  static service: TMockedService = {
+    createUser: jest.fn(),
+    deleteUser: jest.fn(),
+    readUser: jest.fn(),
+    readUsers: jest.fn(),
+    updateUser: jest.fn(),
+    verifyExistence: jest.fn()
+  }
+
   static getValidUser(id = 1) {
     const validUser: UserEntity = {
       avatar: 'base64Avatar',
@@ -27,7 +39,7 @@ class UserMocks {
     return users
   }
 
-  static getCreateUserDTO(id = 1) {
+  static getValidCreateUserDTO(id = 1) {
     const createUserDTO: CreateUserDTO = {
       password: 'ValidPassword@1234',
       email: `valid${id}@email.com`,
@@ -37,5 +49,3 @@ class UserMocks {
     return createUserDTO
   }
 }
-
-export default UserMocks

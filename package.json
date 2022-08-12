@@ -18,7 +18,7 @@
     "debug": "nest start --debug --watch",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "clear && jest",
+    "test": "clear && jest --verbose",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./src/e2e/jest-e2e.json",
@@ -81,9 +81,12 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "modules/**/*.service.(t|j)s",
+      "modules/**/*.resolver.(t|j)s",
+      "modules/**/*.entity.(t|j)s",
+      "modules/**/*.dto.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "/shared/tests/coverage",
     "testEnvironment": "node"
   }
 }
