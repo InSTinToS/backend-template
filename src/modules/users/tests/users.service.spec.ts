@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { UsersMocks } from '../../../shared/tests/mocks/users.mock'
+import { UsersMocks } from './mocks/users.mock'
 import { PrismaService } from '../../../shared/prisma/prisma.service'
 import { UsersService } from '../users.service'
 import { BadRequestException, NotFoundException } from '@nestjs/common'

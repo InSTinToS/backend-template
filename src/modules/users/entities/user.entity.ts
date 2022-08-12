@@ -1,4 +1,4 @@
-import { User as UserGQL } from '../../../shared/graphql/graphql'
+import { User as UserGQL } from '../../../shared/graphql'
 import {
   IsAlphanumeric,
   IsBase64,

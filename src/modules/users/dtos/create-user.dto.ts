@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/mapped-types'
-import { CreateUserInput } from '../../../shared/graphql/graphql'
+import { CreateUserInput } from '../../../shared/graphql'
 import { UserEntity } from '../entities/user.entity'
 
 export class CreateUserDTO

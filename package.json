@@ -21,7 +21,7 @@
     "test": "clear && jest --verbose",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./src/e2e/jest-e2e.json",
+    "test:e2e": "clear && jest --config jest-e2e.json",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/mapped-types'
-import { DeleteUserInput } from '../../../shared/graphql/graphql'
+import { DeleteUserInput } from '../../../shared/graphql'
 import { UserEntity } from '../entities/user.entity'
 
 export class DeleteUserDTO

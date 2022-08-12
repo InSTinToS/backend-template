@@ -1,4 +1,4 @@
-import { ReadUserInput } from '../../../shared/graphql/graphql'
+import { ReadUserInput } from '../../../shared/graphql'
 import { PickType, PartialType } from '@nestjs/mapped-types'
 import { UserEntity } from '../entities/user.entity'
 

@@ -1,6 +1,6 @@
 import { OmitType, PartialType } from '@nestjs/mapped-types'
 
-import { UpdateUserInput } from '../../../shared/graphql/graphql'
+import { UpdateUserInput } from '../../../shared/graphql'
 import { UserEntity } from '../entities/user.entity'
 
 export class UpdateUserDTO
