@@ -1,4 +1,4 @@
-import { User as UserGQL } from '../../../shared/graphql'
+import { User as UserGQL } from '@shared/graphql'
 import {
   IsAlphanumeric,
   IsBase64,
@@ -7,6 +7,7 @@ import {
   IsOptional,
   Matches
 } from 'class-validator'
+
 import { IsObjectId } from 'class-validator-mongo-object-id'
 
 export class UserEntity implements UserGQL {

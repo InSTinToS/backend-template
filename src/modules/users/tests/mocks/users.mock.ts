@@ -1,7 +1,8 @@
-import { CreateUserDTO } from 'src/modules/users/dtos/create-user.dto'
-import { UserEntity } from 'src/modules/users/entities/user.entity'
+import { CreateUserDTO } from '@modules/users/dtos/create-user.dto'
+import { UserEntity } from '@modules/users/entities/user.entity'
+import { IUsersService } from '@modules/users/types/IUsersService.types'
+
 import { ObjectId } from 'mongodb'
-import { IUsersService } from '../../types/IUsersService.types'
 
 type TMockedService = { [key in keyof IUsersService]: jest.Mock<any, any> }
 

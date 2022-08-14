@@ -1,8 +1,9 @@
-import { CreateUserDTO } from '../dtos/create-user.dto'
-import { DeleteUserDTO } from '../dtos/delete-user.dto'
-import { ReadUserDTO } from '../dtos/read-user.dto'
-import { UpdateUserDTO } from '../dtos/update-user.dto'
-import { UserEntity } from '../entities/user.entity'
+import { CreateUserDTO } from '@modules/users/dtos/create-user.dto'
+import { DeleteUserDTO } from '@modules/users/dtos/delete-user.dto'
+import { ReadUserDTO } from '@modules/users/dtos/read-user.dto'
+import { UpdateUserDTO } from '@modules/users/dtos/update-user.dto'
+import { UserEntity } from '@modules/users/entities/user.entity'
+
 import { VerifyExistence } from './verifyExistence.types'
 
 export interface IUsersService {

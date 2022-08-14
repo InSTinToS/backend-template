@@ -1,6 +1,8 @@
-import { ReadUserInput } from '../../../shared/graphql'
-import { PickType, PartialType } from '@nestjs/mapped-types'
-import { UserEntity } from '../entities/user.entity'
+import { ReadUserInput } from '@shared/graphql'
+
+import { UserEntity } from '@modules/users/entities/user.entity'
+
+import { PartialType, PickType } from '@nestjs/mapped-types'
 
 export class ReadUserDTO
   extends PickType(PartialType(UserEntity), ['id', 'username', 'email'])

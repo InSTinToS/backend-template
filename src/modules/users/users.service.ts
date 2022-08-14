@@ -4,8 +4,7 @@ import {
   NotFoundException
 } from '@nestjs/common'
 
-import { PrismaService } from '../../shared/prisma/prisma.service'
-
+import { PrismaService } from '@shared/prisma/prisma.service'
 import { IUsersService } from './types/IUsersService.types'
 import { VerifyExistenceReturn } from './types/verifyExistence.types'
 

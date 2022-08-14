@@ -1,9 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing'
+import { PrismaService } from '@shared/prisma/prisma.service'
+
+import { CreateUserDTO } from '@modules/users/dtos/create-user.dto'
+import { UsersService } from '@modules/users/users.service'
+
 import { UsersMocks } from './mocks/users.mock'
-import { PrismaService } from '../../../shared/prisma/prisma.service'
-import { UsersService } from '../users.service'
 import { BadRequestException, NotFoundException } from '@nestjs/common'
-import { CreateUserDTO } from '../dtos/create-user.dto'
+import { Test, TestingModule } from '@nestjs/testing'
 
 describe('UsersService', () => {
   let service: UsersService

@@ -1,21 +1,26 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
+    "declaration": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
+    "module": "commonjs",
     "noImplicitAny": false,
+    "removeComments": true,
+    "strictNullChecks": false,
     "strictBindCallApply": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": false,
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "paths": {
+      "@src/*": ["src/*"],
+      "@shared/*": ["src/shared/*"],
+      "@modules/*": ["src/modules/*"]
+    }
   }
 }

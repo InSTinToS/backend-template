@@ -1,4 +1,4 @@
-import { UserEntity } from '../entities/user.entity'
+import { UserEntity } from '@modules/users/entities/user.entity'
 
 interface VerifyExistenceParams {
   id?: UserEntity['id']

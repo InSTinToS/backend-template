@@ -1,7 +1,7 @@
+import { createTestingModule } from '@shared/utils/tests/createTestingModule'
+
 import { INestApplication } from '@nestjs/common'
 import * as request from 'supertest'
-
-import { createTestingModule } from '../../../shared/utils/tests/createTestingModule'
 
 describe('AppController (e2e)', () => {
   let app: INestApplication
